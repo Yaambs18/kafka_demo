@@ -1,6 +1,6 @@
 from kafka import KafkaProducer, producer
 import json
-from web_scraping_book import tw_star_rating
+from roman_class import Roman
 import time
 
 def json_serializer(data):
@@ -8,8 +8,9 @@ def json_serializer(data):
 producer = KafkaProducer(bootstrap_servers=['127.0.0.1:9092'], value_serializer = json_serializer)
 
 if __name__ == "__main__":
-    while True:
-        books_list = tw_star_rating
-        print(books_list)
-        producer.send("two_star_rating_books", books_list)
+    obj = Roman()
+    for i in ['IX', 'D', 'CXX', 'LIX', 'VII', 'XIXX', 'XCIX']:
+        Integer_val = obj.roman_to_int(i)
+        print(Integer_val)
+        producer.send("Roman_to_Integer", Integer_val)
         time.sleep(2)
